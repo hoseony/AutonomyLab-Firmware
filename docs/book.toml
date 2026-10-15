@@ -1,0 +1,8 @@
+[book]
+title = "AutonomyLab Firmware"
+authors = ["Hoseon Yu"]
+language = "en"
+src = "src"
+
+[output.html]
+site-url = "/AutonomyLab-Firmware/"
