@@ -6,3 +6,4 @@ src = "src"
 
 [output.html]
 site-url = "/AutonomyLab-Firmware/"
+additional-css = ["theme/custom.css"]
