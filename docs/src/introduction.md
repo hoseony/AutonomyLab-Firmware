@@ -1,8 +1,7 @@
-# Firmware Team Mono Repo
-This page covers repo structure and contribution guide.
+# Introduction
+This is a mono repo for autonomy lab firmware team at The Cooper Union for the Advancement of Science and Art.
 
 ## Repository Structure
-
 ```
 AutonomyLab-Firmware/
 ├── drivers/                    Hardware drivers
@@ -17,31 +16,28 @@ AutonomyLab-Firmware/
 └── .github/workflows/          CI and docs deployment
 ```
 
-### drivers/
+### `drivers/`
 As the name suggests, put drivers here. Keep it baremetal.
 - `rp2350/` : the chip's own peripherals (GPIO, PWM, UART, ...)
-- `devices/` : for external parts.
+- `devices/` : for external parts. One folder per part, named by its part number.
 - Name registers and fields as the datasheet does (this reduces confusion).
 - Note datasheet section/page in comments where helpful.
 
-### lib/
+### `lib/`
 Code that does not touch hardware. It should be able to compile on your machine (not pico) as well.
 
 - If it needs registers -> drivers/
 - Only used inside one specific driver -> keep it in that driver
 - Shared between drivers or examples -> lib/
 
-### examples/
-Small programs that show a driver is working, one folder each. Use them to test a driver and also document example usage of your driver.
+### `examples/`
+Small programs that show a driver is working, one folder each. Use them to test a driver and document example usage of your driver.
 
 
 ## Contributing
-
-### Workflow
-
 Do not directly commit to `main`.
 
-1. Pull `main` and create a branch.
+1. Pull `main` and create a branch. For example,
     ```bash
     git switch main && git pull
     git switch -c feature/pwm-driver
@@ -61,5 +57,4 @@ Do not directly commit to `main`.
 | `docs/`     | Documentation only       |
 
 ### Code Style
-- Format with `clang-format` using the `.clang-format` on the root.
-
+Format with `clang-format` using the `.clang-format` on the root.
