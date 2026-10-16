@@ -33,9 +33,8 @@ Code that does not touch hardware. It should be able to compile on your machine 
 ### `examples/`
 Small programs that show a driver is working, one folder each. Use them to test a driver and document example usage of your driver.
 
-
 ## Contributing
-Do not directly commit to `main`.
+Please do not directly commit to `main`.
 
 1. Pull `main` and create a branch. For example,
     ```bash
@@ -43,18 +42,26 @@ Do not directly commit to `main`.
     git switch -c feature/pwm-driver
     ```
 2. Commit your work to your branch.
-3. Open a PR into `main`.
+3. Open a pull request into `main`.
 4. Get someone else to review and approve.
 5. Then merge it.
 
-### Branch Naming Convention
+### Conventions
+Some conventions has been specified to make potential future integration less painful. This was decided on October 16, 2026.
 
+#### Branches
+Use the following prefixes when creating a branch. Use-kebab-case-for-branch-names.
 
 | Prefix      | Use this for |
 |-------------|--------------------------|
-| `feature/`  | New drivers or features  |
+| `feat/`  | New drivers or features  |
 | `fix/`      | Bug fixes                |
 | `docs/`     | Documentation only       |
 
-### Code Style
-Format with `clang-format` using the `.clang-format` on the root.
+
+#### Code Style
+- Format with `clang-format` using the `.clang-format` on the root.
+- Use fixed-width integer types.
+- Yes typedef for all the structs
+- we are using snake_case
+
