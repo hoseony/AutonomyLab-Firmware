@@ -1,1 +1,1 @@
-hardware independent codes
+hardware independent code
