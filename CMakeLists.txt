@@ -15,4 +15,5 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 pico_sdk_init()
 
+# add subdirectory
 add_subdirectory(drivers/rp2350)
