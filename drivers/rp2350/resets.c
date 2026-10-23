@@ -3,7 +3,7 @@
 
 /// Reset and wait for it to unreset
 /// This is blocking.
-void resetPeripherals(uint32_t mask) {
+void reset_peripherals(uint32_t mask) {
     RESETS->RESET |= mask;
     RESETS->RESET &= (~mask);
 
