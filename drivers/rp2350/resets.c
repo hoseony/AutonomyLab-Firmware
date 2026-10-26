@@ -3,12 +3,12 @@
 
 /// Reset and wait for it to unreset
 /// This is blocking.
-void reset_peripherals(uint32_t mask) {
-    RESETS->RESET |= mask;
-    RESETS->RESET &= (~mask);
+void rp_reset_peripherals(uint32_t mask) {
+    RP_RESETS->RESET |= mask;
+    RP_RESETS->RESET &= (~mask);
 
     // wait until reset done
-    while ((RESETS->RESET_DONE & mask) != mask) {
+    while ((RP_RESETS->RESET_DONE & mask) != mask) {
         ;
     }
 }

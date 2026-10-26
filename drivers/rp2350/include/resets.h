@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-void reset_peripherals(uint32_t mask);
+void rp_reset_peripherals(uint32_t mask);
 
 #endif
