@@ -1,0 +1,63 @@
+
+name: Publish IGVC Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/igvc-publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: igvc-publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install mdBook
+        uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: "0.5.4"
+
+      - name: Build for Cooper
+        run: |
+          sed -i 's|site-url = "/AutonomyLab-Firmware/"|site-url = "/"|' docs/book.toml
+          mdbook build docs
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: igvc-html
+          path: docs/book/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: igvc-html
+          path: site/
+
+      - name: Publish generated website branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: igvc-build
+          publish_dir: site/
+          force_orphan: true
+
