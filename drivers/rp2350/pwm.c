@@ -1,6 +1,8 @@
 #include "pwm.h"
 #include "rp2350Regs.h"
 
+#include <stdlib.h>
+
 /// turns pin# to correct slice for PWM
 static uint32_t pwm_pin_to_slice(uint32_t pin) {
     if (pin < 32) {
@@ -100,6 +102,25 @@ bool rp_pwm_enable(uint32_t pin, bool enable) {
 
         RP_PWM->SLICE[slice].CSR &= ~RP_PWM_CSR_EN_MASK;
     }
+
+    return true;
+}
+
+/// get current duty of the pwm
+/// result through *duty, bool for validity
+bool rp_pwm_get_duty(uint32_t pin, float *duty) {
+    if (pin >= RP_NUM_GPIO || duty == NULL) {
+        return false;
+    }
+
+    uint32_t slice = pwm_pin_to_slice(pin);
+    uint32_t top   = RP_PWM->SLICE[slice].TOP;
+
+    uint32_t channel = pin % 2;
+    uint32_t shift   = channel * 16;
+    uint32_t cc      = (RP_PWM->SLICE[slice].CC >> shift) & 0xFFFFu;
+
+    *duty = (float)((cc * 100.0f) / ((float)(top + 1)));
 
     return true;
 }
