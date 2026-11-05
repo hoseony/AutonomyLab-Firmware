@@ -14,7 +14,7 @@ make
 #### In one terminal:
 `sudo openocd`
 
-#### In another terminal:
+#### In second terminal:
 ```
 sudo ip link set can0 down
 sudo ip link set can0 type can bitrate 500000
