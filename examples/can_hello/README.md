@@ -15,10 +15,12 @@ make
 `sudo openocd`
 
 #### In another terminal:
+```
 sudo ip link set can0 down
 sudo ip link set can0 type can bitrate 500000
 sudo ip link set can0 up
 candump can0
+```
 
 #### In a third terminal:
 flash:
