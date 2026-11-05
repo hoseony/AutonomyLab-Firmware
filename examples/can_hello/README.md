@@ -1,9 +1,7 @@
 # can_hello example
 makes a pico spam "hello world" every once in a while and blinks an led if its successful
 
-## How to use
-
-### Building
+## Building
 ``` 
 mkdir build
 cd build
@@ -11,6 +9,7 @@ cmake ..
 make
 ```
 
+## How to Flash or Debug
 #### In one terminal:
 `sudo openocd`
 
@@ -22,7 +21,7 @@ sudo ip link set can0 up
 candump can0
 ```
 
-#### In a third terminal:
+#### In third terminal:
 flash:
 `gdb -ex flash`
 
