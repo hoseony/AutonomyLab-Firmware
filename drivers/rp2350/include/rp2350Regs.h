@@ -31,6 +31,15 @@ typedef struct {
     volatile uint32_t CTRL;
 } RP_GPIO_t;
 
+// ------------------ SIO ---------------------
+#define RP_SIO_BASE 0xD0000000u
+
+#define RP_GPIO_OUT_SET (RP_SIO_BASE + 0x018u)
+#define RP_GPIO_OUT_CLR (RP_SIO_BASE + 0x020u)
+
+#define RP_GPIO_OE_SET (RP_SIO_BASE + 0x038u)
+#define RP_GPIO_OE_CLR (RP_SIO_BASE + 0x040u)
+
 // ------------------ PADS ---------------------
 #define RP_PADS_BANK0_BASE 0x40038000u
 #define RP_PADS_BANK0      ((RP_PADS_BANK0_t *)RP_PADS_BANK0_BASE)

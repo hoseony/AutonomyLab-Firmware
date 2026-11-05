@@ -15,3 +15,37 @@ bool rp_gpio_set_function(uint32_t pin, RP_GPIO_FUNC_t func) {
 
     return true;
 }
+
+/* Drive pin high or low */
+bool rp_gpio_write(uint32_t pin, bool high) { 
+    // Only for GPIO 0-31 for now IDK if we need the others but can just add the other register if needed
+    if ( pin > 31) {
+        return false;
+    }
+
+    if (high) {
+        *(volatile uint32_t*) RP_GPIO_OUT_SET = 1u << pin;
+    }
+    else {
+        *(volatile uint32_t*) RP_GPIO_OUT_CLR = 1u << pin;
+    }
+
+    return true;
+}
+
+/* Configure pin as output or input */
+bool rp_gpio_set_dir(uint32_t pin, bool output) {
+    // Same thing as rp_gpio_write for these registers
+    if (pin > 31) {
+        return false;
+    }
+
+    if (output) {
+        *(volatile uint32_t*) RP_GPIO_OE_SET = 1u << pin;
+    }
+    else {
+        *(volatile uint32_t*) RP_GPIO_OE_CLR = 1u << pin;
+    }
+    
+    return true;
+}
