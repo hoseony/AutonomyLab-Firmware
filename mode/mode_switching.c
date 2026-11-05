@@ -99,6 +99,7 @@ int main(void)
         bool start_event =
             input.start_pressed && !previous_start;
 
+        //Set what the current mode is
         // E-stop takes priority over every other condition
         if (input.estop_requested) {
             current_mode = STANDBY;
@@ -110,7 +111,6 @@ int main(void)
                 case STANDBY:
                     if (start_event &&
                         input.systems_ready) {
-
                         current_mode = AUTONOMOUS;
                     }
                     break;
