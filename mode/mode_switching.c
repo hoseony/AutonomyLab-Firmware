@@ -10,23 +10,33 @@
 ------- 15   | Output    | E-Stop Mode LED -----------------
 */
 
+
+/*
+    Current design does not give instructions on 
+    how the car will move from autnomous mode to standby mode.
+
+    when the start button is pressed, the car will enter autonomous mode if the system is ready. 
+    when the start button is pressed again, the car will enter standby mode.
+
+    when the e-stop button is pressed, the car will enter standby mode.
+*/
+
 #define START_PIN 10
 #define ESTOP_PIN 11
 #define AUTON_LED_PIN 14
 #define ESTOP_LED_PIN 15
 
-// Define all three modes of the vehicle
+// Define all  modes of the vehicle
 typedef enum {
     STANDBY,
     AUTONOMOUS,
-    E_STOP
+    //E_STOP
 } vehicle_mode;
 
 typedef struct {
-    bool mode_selected;
+    //bool mode_selected; we don't need to select mdoe we only two modes now
     bool start_pressed;
     bool estop_requested;
-    //bool estop_released;
     bool systems_ready;
 } mode_input;
 
@@ -63,13 +73,12 @@ mode_input read_inputs()
 {
     mode_input input;
 
-    //read the buttons
-    input.start_pressed = !gpio_get(START_PIN);
-    input.estop_requested = !gpio_get(ESTOP_PIN);
+    //read the buttons assuming active high
+    input.start_pressed = gpio_get(START_PIN);
+    input.estop_requested = gpio_get(ESTOP_PIN);
 
-    //for testing
+    //for testing we assume system always ready
     input.systems_ready = true;
-    input.mode_selected = true;
 
     return input;
 }
@@ -92,14 +101,14 @@ int main(void)
 
         // E-stop takes priority over every other condition
         if (input.estop_requested) {
-            current_mode = E_STOP;
+            current_mode = STANDBY;
+            input.estop_requested = false; // Reset the E-stop request after handling it
         }
         else {
             switch (current_mode) {
 
                 case STANDBY:
-                    if (input.mode_selected &&
-                        start_event &&
+                    if (start_event &&
                         input.systems_ready) {
 
                         current_mode = AUTONOMOUS;
@@ -107,30 +116,18 @@ int main(void)
                     break;
 
                 case AUTONOMOUS:
-                    if (!input.mode_selected ||
-                        !input.systems_ready) {
-
-                        current_mode = STANDBY;
-                    }
-                    break;
-
-                case E_STOP:
-                    // Require a new Start press to rearm
-                    // Return to STANDBY, not AUTONOMOUS
                     if (start_event) {
                         current_mode = STANDBY;
                     }
-                    break;
-
-                default:
-                    current_mode = E_STOP;
                     break;
             }
         }
         
         // Update indicator LEDs
-        gpio_put(AUTON_LED_PIN, current_mode == AUTONOMOUS);
-        gpio_put(ESTOP_LED_PIN, current_mode == E_STOP);
+        gpio_put(AUTON_LED_PIN, current_mode == AUTONOMOUS); //blinking LED 
+        //blinking LED will handle by Thomas
+
+        gpio_put(ESTOP_LED_PIN, current_mode == STANDBY); //Not in autonmous mode, solid LED
 
         // Save button state for the next iteration
         previous_start = input.start_pressed;
