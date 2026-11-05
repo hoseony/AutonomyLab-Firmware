@@ -3,6 +3,12 @@ Have 2 picos:
 - `node_a.c`: One sending "u there?" (ID: 200) every second
 - `node_b.c`: One sending "i there " (ID: 201) every time it sees a message on CAN bus. Has 10% chance of sending "shut up " too.
 
+### Connection Setup Picture
+<img width="720" height="540" alt="connection_setup" src="https://github.com/user-attachments/assets/4d86fcd6-e2cd-435d-a194-79011f8d46ef" />
+
+### Expected output (From Innomaker USB-CAN Module, after running for 9 seconds)
+<img width="735" height="379" alt="can_ping_pong_demo" src="https://github.com/user-attachments/assets/73aa5dc4-10c6-46a3-b665-cb5b872e5097" />
+
 ## Building and Flashing
 ```
 cmake -B build
