@@ -10,10 +10,10 @@ make
 ```
 
 ## How to Flash or Debug
-#### In one terminal:
+### In one terminal:
 `sudo openocd`
 
-#### In second terminal:
+### In second terminal:
 ```
 sudo ip link set can0 down
 sudo ip link set can0 type can bitrate 500000
@@ -21,10 +21,10 @@ sudo ip link set can0 up
 candump can0
 ```
 
-#### In third terminal:
+### In third terminal:
 flash:
 `gdb -ex flash`
 
 debug:
-`gdb -x Debug`
+`gdb -x debug`
 
