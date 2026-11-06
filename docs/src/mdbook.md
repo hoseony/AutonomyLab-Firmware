@@ -1,7 +1,12 @@
 # Writing Docs
 
 1. Install mdbook.
-    - for Macos: `brew install mdbook` 
+    - for Macos: `brew install mdbook`
+    - for NixOS: Add to your configuration.nix file
+    	`environment.systemPackages = [
+    		pkgs.mdbook
+    	];`
+    	<small> Or add it to your home-manager, you do you boo <small>
     - main documentation: <https://rust-lang.github.io/mdBook/guide/installation.html> \
     <small>Sorry if you are using different OS, you can add some documentation for your OS here…</small>
 2. To add a page, create a `.md` file in `docs/src/` and list it in `SUMMARY.md`.
