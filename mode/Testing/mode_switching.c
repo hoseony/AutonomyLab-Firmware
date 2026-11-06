@@ -30,7 +30,6 @@
 typedef enum {
     STANDBY,
     AUTONOMOUS,
-    //E_STOP
 } vehicle_mode;
 
 typedef struct {
@@ -89,7 +88,7 @@ int main(void)
     setup();
 
     mode_input initial_input = read_inputs();
-    bool previous_start = initial_input.start_pressed;
+    bool previous_start = false; // Initialize previous_start to false
 
     while (true)
     {
@@ -107,19 +106,14 @@ int main(void)
         }
         else {
             switch (current_mode) {
-
                 case STANDBY:
                     if (start_event &&
                         input.systems_ready) {
                         current_mode = AUTONOMOUS;
                     }
                     break;
-
-                case AUTONOMOUS:
-                    if (start_event) {
-                        current_mode = STANDBY;
-                    }
-                    break;
+                //do nothing if it is in autonomous mode
+                //we get out of auto mode by estop or completing the task
             }
         }
         
