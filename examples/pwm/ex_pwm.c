@@ -1,6 +1,8 @@
-#include "gpio.h"
 #include "pico/stdlib.h"
+
 #include "pwm.h"
+#include "pwm_helper.h"
+#include "gpio.h"
 #include "resets.h"
 #include "rp2350Regs.h"
 
@@ -21,21 +23,7 @@ bool rp_pwm_stop(uint32_t pin) {
     return true;
 }
 
-/// blocking: ramp pin's duty from "from" to "to" at rate "rate" [%/s]
-/// returns true when done, false when something goes wrong
-bool pwm_ramp_to(uint32_t pin, float to, float rate) {
-    if (!(rate > 0.0f)) {
-        return false;
-    }
-
-    if (!rp_pwm_set_duty(pin, to)) {
-        return false;
-    }
-
-    return true;
-}
-
-static void rp_pwm_setup_pin(uint32_t pin, float duty) {
+void rp_pwm_setup_pin(uint32_t pin, float duty) {
     rp_gpio_set_function(pin, RP_GPIO_FUNC_PWM);
     rp_pwm_set_duty(pin, duty);
 }
@@ -47,12 +35,21 @@ int main(void) {
     // pin a and pin b shares the same frequency
     rp_pwm_set_freq(PIN_A, 20000);
 
-    rp_pwm_setup_pin(PIN_A, 40.0f);
-    rp_pwm_setup_pin(PIN_B, 20.0f);
+	// start at 0%
+    rp_pwm_setup_pin(PIN_A, 0.0f);
+    rp_pwm_setup_pin(PIN_B, 0.0f);
 
     rp_pwm_enable(PIN_A, true);
 
     while (1) {
-        ;
+        // 0 -> 80%
+        // 4s
+        rp_pwm_ramp_to(PIN_A, 80.0f, 20.0f);
+
+        sleep_ms(1000);
+        // back down to 0 wover 4s
+        rp_pwm_ramp_to(PIN_A, 0.0f, 20.0f);
+
+        sleep_ms(1000);
     }
 }
