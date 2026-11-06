@@ -2,6 +2,8 @@
 #define MD30C_H
 
 #include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 #define MD30C_PWM_FREQ_HZ 20000u
 
