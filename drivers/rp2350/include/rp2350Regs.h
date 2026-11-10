@@ -31,6 +31,11 @@ typedef struct {
     volatile uint32_t CTRL;
 } RP_GPIO_t;
 
+// pads reset value: 0x116
+#define RP_PADS_IE_MASK (0x00000001u << 6)
+
+
+
 // ------------------ SIO ---------------------
 #define RP_SIO_BASE 0xD0000000u
 

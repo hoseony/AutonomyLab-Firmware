@@ -17,9 +17,9 @@ bool rp_gpio_set_function(uint32_t pin, RP_GPIO_FUNC_t func) {
 }
 
 /* Drive pin high or low */
-bool rp_gpio_write(uint32_t pin, bool high) { 
+bool rp_gpio_write(uint32_t pin, bool high) {
     // Only for GPIO 0-31 for now IDK if we need the others but can just add the other register if needed
-    if ( pin > 31) {
+    if (pin > 31) {
         return false;
     }
 
@@ -33,7 +33,7 @@ bool rp_gpio_write(uint32_t pin, bool high) {
     return true;
 }
 
-/* Configure pin as output or input */
+/* enable or disable pin's output */
 bool rp_gpio_set_dir(uint32_t pin, bool output) {
     // Same thing as rp_gpio_write for these registers
     if (pin > 31) {
@@ -46,6 +46,18 @@ bool rp_gpio_set_dir(uint32_t pin, bool output) {
     else {
         *(volatile uint32_t*) RP_GPIO_OE_CLR = 1u << pin;
     }
-    
+
+    return true;
+}
+
+bool rp_gpio_set_input(uint32_t pin, bool enable) {
+    if (pin > 31) {
+        return false;
+    }
+
+    if (enable) {
+        RP_PADS_BANK0->GPIO[pin] |= RP_PADS_IE_MASK;
+    }
+
     return true;
 }
