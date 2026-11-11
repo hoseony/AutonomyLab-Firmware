@@ -61,3 +61,12 @@ bool rp_gpio_set_input(uint32_t pin, bool enable) {
 
     return true;
 }
+
+bool rp_gpio_read(uint32_t pin, bool *high) {
+    if (pin > 31 || !high) {
+        return false;
+    }
+
+    *high = (*(volatile uint32_t*) RP_GPIO_IN >> pin) & 0x1u;
+    return true;
+}

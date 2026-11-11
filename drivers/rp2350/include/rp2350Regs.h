@@ -45,6 +45,8 @@ typedef struct {
 #define RP_GPIO_OE_SET (RP_SIO_BASE + 0x038u)
 #define RP_GPIO_OE_CLR (RP_SIO_BASE + 0x040u)
 
+#define RP_GPIO_IN (RP_SIO_BASE + 0x004u)
+
 // ------------------ PADS ---------------------
 #define RP_PADS_BANK0_BASE 0x40038000u
 #define RP_PADS_BANK0      ((RP_PADS_BANK0_t *)RP_PADS_BANK0_BASE)
