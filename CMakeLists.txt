@@ -15,8 +15,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 pico_sdk_init()
 
+include(external/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2350_ARM_NTZ/FreeRTOS_Kernel_import.cmake)
+
+
 # add subdirectory
 add_subdirectory(drivers/rp2350)
 add_subdirectory(drivers/devices/md30c)
+add_subdirectory(rtos)
 add_subdirectory(examples/pwm)
 add_subdirectory(examples/md30c)
+add_subdirectory(examples/rtos/blink)
