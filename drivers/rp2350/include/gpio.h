@@ -25,6 +25,4 @@ bool rp_gpio_write(uint32_t pin, bool high);
 bool rp_gpio_set_dir(uint32_t pin, bool output);
 bool rp_gpio_set_input(uint32_t pin, bool enable);
 
-bool rp_gpio_set_input(uint32_t pin, bool enable);
-
 #endif
