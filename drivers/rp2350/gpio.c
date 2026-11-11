@@ -50,6 +50,7 @@ bool rp_gpio_set_dir(uint32_t pin, bool output) {
     return true;
 }
 
+/* enable or disable input */
 bool rp_gpio_set_input(uint32_t pin, bool enable) {
     if (pin > 31) {
         return false;
@@ -57,6 +58,8 @@ bool rp_gpio_set_input(uint32_t pin, bool enable) {
 
     if (enable) {
         RP_PADS_BANK0->GPIO[pin] |= RP_PADS_IE_MASK;
+    } else {
+        RP_PADS_BANK0->GPIO[pin] &= ~ RP_PADS_IE_MASK;
     }
 
     return true;

@@ -21,10 +21,9 @@ typedef enum {
 } RP_GPIO_FUNC_t;
 
 bool rp_gpio_set_function(uint32_t pin, RP_GPIO_FUNC_t func);
-
 bool rp_gpio_write(uint32_t pin, bool high);
-
 bool rp_gpio_set_dir(uint32_t pin, bool output);
+bool rp_gpio_set_input(uint32_t pin, bool enable);
 
 bool rp_gpio_set_input(uint32_t pin, bool enable);
 
