@@ -8,11 +8,13 @@
   outputs =
     inputs:
     let
+      # Helper list??
       systems = [
         "x86_64-linux"
         "aarch64-linux"
         "aarch64-darwin"
       ];
+      # Helper function
       forAllSystems =
         f:
         map (system: {
@@ -21,7 +23,21 @@
         }) systems;
     in
     {
-      # Basic dev shells
+
+      packages = builtins.listToAttrs (
+        forAllSystems (
+          system:
+          let
+            pkgs = inputs.nixpkgs.legacyPackages.${system};
+            pico-sdk = pkgs.pico-sdk.override { withSubmodules = true; };
+          in
+          {
+            debugprobe = pkgs.callPackage ./nix/debugprobe.nix { inherit pico-sdk; };
+          }
+        )
+      );
+
+      # Basic dev shells, includes the packages we need for development
       devShells = builtins.listToAttrs (
         forAllSystems (
           system:
@@ -49,6 +65,7 @@
                 python3
 
                 gcc-arm-embedded
+                gdb
 
                 picotool
                 gnumake
@@ -59,6 +76,7 @@
                 mdbook
                 clang-tools
                 minicom
+
               ];
               env = {
                 PICO_SDK_PATH = "${pico-sdk}/lib/pico-sdk";
