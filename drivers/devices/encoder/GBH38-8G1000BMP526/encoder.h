@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-
+// 1000 PPR quadrature encoder
 #define ENCODER_COUNTS_PER_REV 4000
 
 bool encoder_init(uint32_t pin_a, uint32_t pin_b);
