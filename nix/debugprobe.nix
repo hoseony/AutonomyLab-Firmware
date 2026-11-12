@@ -9,16 +9,16 @@
   python3,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalattrs: {
   pname = "debugprobe_on_pico2";
   version = "2.3.1";
 
   src = fetchFromGitHub {
     owner = "raspberrypi";
     repo = "debugprobe";
-    rev = "debugprobe-v${finalAttrs.version}";
-    hash = "sha256-o3hARsvUrpnSjyugeGq6ECEnHrbm/xC6EvswSsgPoL4=";
-    fetchSubmodules = true;
+    rev = "debugprobe-v${finalattrs.version}";
+    hash = "sha256-o3harsvurpnsjyugegq6ecenhrbm/xc6evswssgpol4=";
+    fetchsubmodules = true;
   };
 
   nativeBuildInputs = [
@@ -26,6 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     gcc-arm-embedded
     picotool
     python3
+    pico-sdk
   ];
 
   cmakeFlags = [

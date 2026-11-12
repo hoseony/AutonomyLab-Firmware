@@ -33,6 +33,8 @@
           in
           {
             debugprobe = pkgs.callPackage ./nix/debugprobe.nix { inherit pico-sdk; };
+            md30c = pkgs.callPackage ./nix/md30c.nix { inherit pico-sdk; };
+            freertos-kernel-rpi = pkgs.callPackage ./nix/freertos-kernel-rpi.nix { };
           }
         )
       );
@@ -44,6 +46,7 @@
           let
             pkgs = inputs.nixpkgs.legacyPackages.${system};
             pico-sdk = pkgs.pico-sdk.override { withSubmodules = true; };
+            freertos-kernel-rpi = inputs.self.packages.${system}.freertos-kernel-rpi;
             openocd-rp2350 = pkgs.openocd-rp2040.overrideAttrs (
               finalAttrs: old: {
                 version = "2.3.0";
@@ -80,6 +83,7 @@
               ];
               env = {
                 PICO_SDK_PATH = "${pico-sdk}/lib/pico-sdk";
+                FREERTOS_KERNEL_PATH = "${freertos-kernel-rpi}";
               };
             };
           }
