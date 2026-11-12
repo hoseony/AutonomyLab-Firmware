@@ -18,5 +18,8 @@ pico_sdk_init()
 # add subdirectory
 add_subdirectory(drivers/rp2350)
 add_subdirectory(drivers/devices/md30c)
+add_subdirectory(drivers/devices/mcp2518fd)
 add_subdirectory(examples/pwm)
 add_subdirectory(examples/md30c)
+add_subdirectory(examples/can_hello)
+add_subdirectory(examples/can_ping_pong)

@@ -1,0 +1,9 @@
+add_executable(ex_can_node_a node_a.c)
+target_link_libraries(ex_can_node_a mcp2518fd)
+pico_enable_stdio_uart(ex_can_node_a 1)
+pico_add_extra_outputs(ex_can_node_a)
+
+add_executable(ex_can_node_b node_b.c)
+target_link_libraries(ex_can_node_b mcp2518fd)
+pico_enable_stdio_uart(ex_can_node_b 1)
+pico_add_extra_outputs(ex_can_node_b)
