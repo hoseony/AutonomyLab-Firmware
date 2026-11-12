@@ -1,4 +1,3 @@
-file build/can_hello.elf
 set architecture arm
 target remote localhost:3333
 

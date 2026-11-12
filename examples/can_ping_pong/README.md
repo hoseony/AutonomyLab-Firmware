@@ -43,7 +43,7 @@ candump can0
 If you followed the "Building and Flashing" section, both target picos should already be flashed. In this case, you can just plug in a usb to one of the two debuggers (assuming VSYS connects every single pico) and every pico will get power and you don't have to do anything. The commands for debugging or flashing are below though.
 
 flash: 
-`gdb build/<node_a.elf or node_b.elf> -ex flash`
+`gdb <path-to-build-directory>/<node_a.elf or node_b.elf> -ex flash`
 
 debug:
-`gdb build/<node_a.elf or node_b.elf> -ex debug`
+`gdb <path-to-build-directory>/<node_a.elf or node_b.elf> -ex debug`
