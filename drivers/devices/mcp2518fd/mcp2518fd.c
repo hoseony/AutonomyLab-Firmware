@@ -51,32 +51,6 @@ const uint16_t crc16_table[256] = {
 	0x820D, 0x8207, 0x0202
 };
 
-// sets up spi on rp2350 to communicate with mcp2518fd
-// Initializes everything on spi_default
-// So that would be GP16 - GP19
-void mcp2518fd_spi_init(uint32_t spi_clk_rate)
-{
-	// Initialize RP2350 SPI peripheral
-	stdio_init_all();
-
-	// Enable SPI 0 at specified clock rate and connect to GPIOs
-	uint32_t real_baudrate = spi_init(spi_default, spi_clk_rate);
-
-	// Set SPI to (0,0) mode
-	spi_set_format(spi_default, MSG_SIZE, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
-
-	gpio_set_function(PICO_DEFAULT_SPI_RX_PIN, GPIO_FUNC_SPI); // SPI0RX GP16
-	gpio_set_function(PICO_DEFAULT_SPI_TX_PIN, GPIO_FUNC_SPI); // SPI0TX GP19
-	gpio_set_function(PICO_DEFAULT_SPI_SCK_PIN, GPIO_FUNC_SPI); // SPI0SCK GP18
-
-	// gpio_pull_up(PICO_DEFAULT_SPI_RX_PIN);
-	// gpio_pull_up(PICO_DEFAULT_SPI_TX_PIN);
-
-	gpio_set_function(PICO_DEFAULT_SPI_CSN_PIN, GPIO_FUNC_SIO); // SPICSN GP17
-	gpio_set_dir(PICO_DEFAULT_SPI_CSN_PIN, GPIO_OUT);
-	gpio_put(PICO_DEFAULT_SPI_CSN_PIN, HIGH);
-}
-
 /*
   Perform mcp2518fd RESET instruction
 */
