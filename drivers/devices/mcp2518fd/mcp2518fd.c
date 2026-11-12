@@ -502,7 +502,6 @@ int8_t mcp2518fd_configure_bit_time_40MHz(CAN_NOMINAL_BITTIME_SETUP bit_time)
 	Receive a message from a specified RX channel
 	rx_data is expected to be 8 bytes because CAN 2.0, and no timestamps
 	return -1 if FIFO is not an RX fifo
-	return -2 if there is no room in RX FIFO
 	return 0 if success
 */
 int8_t mcp2518fd_receive_message(CAN_FIFO_CHANNEL channel, CAN_RX_MSGOBJ *rxObj, uint8_t *rxd)
