@@ -23,8 +23,8 @@ candump can0
 
 ### In third terminal:
 flash:
-`gdb <path-to-blinky.elf-in-build-directory> -ex flash`
+`gdb <path-to-ex_blinky.elf-in-build-directory> -ex flash`
 
 debug:
-`gdb <path-to-blinky.elf-in-build-directory> -ex debug`
+`gdb <path-to-ex_blinky.elf-in-build-directory> -ex debug`
 
