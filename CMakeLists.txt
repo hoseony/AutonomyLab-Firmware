@@ -1,22 +1,25 @@
 # Initialization
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.22)
 
 set(PICO_BOARD pico2)
 set(PICO_PLATFORM rp2350)
 
+# include pico-sdk
 include(cmake/pico_sdk_import.cmake)
 
-project(AutonomyLabFirmware VERSION 0.1 LANGUAGES C CXX ASM)
+project(AutonomyLabFirmware LANGUAGES C CXX ASM)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
+# generate build/compile_commands.json for clangd/editor
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# initialize pico-sdk
 pico_sdk_init()
 
+# include freeRTOS
 include(external/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2350_ARM_NTZ/FreeRTOS_Kernel_import.cmake)
-
 
 # add subdirectory
 add_subdirectory(drivers/rp2350)

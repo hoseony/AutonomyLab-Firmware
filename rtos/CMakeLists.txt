@@ -1,7 +1,11 @@
+# Add freeRTOS as interface library.
+# It doesn't build anything itself.
 add_library(freertos INTERFACE)
-target_include_directories(freertos INTERFACE
-	${CMAKE_CURRENT_LIST_DIR})
 
+# include this folder (for FreeRTOSConfig.h)
+target_include_directories(freertos INTERFACE .)
+
+# actually include freeRTOS library
 target_link_libraries(freertos INTERFACE
 	FreeRTOS-Kernel
 	FreeRTOS-Kernel-Heap4
