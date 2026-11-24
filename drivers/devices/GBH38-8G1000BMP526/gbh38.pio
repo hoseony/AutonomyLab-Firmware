@@ -1,0 +1,45 @@
+
+.pio_version 0
+.program gbh38
+.origin 0
+
+; Transition lookup table
+; Index = (previous_AB << 2) | current_AB
+
+    jmp publish            ; 00 -> 00
+    jmp reverse            ; 00 -> 01
+    jmp forward            ; 00 -> 10
+    jmp publish            ; 00 -> 11
+
+    jmp forward            ; 01 -> 00
+    jmp publish            ; 01 -> 01
+    jmp publish            ; 01 -> 10
+    jmp reverse            ; 01 -> 11
+
+    jmp reverse            ; 10 -> 00
+    jmp publish            ; 10 -> 01
+    jmp publish            ; 10 -> 10
+    jmp forward            ; 10 -> 11
+
+    jmp publish            ; 11 -> 00
+    jmp forward            ; 11 -> 01
+
+reverse:
+    jmp x--, publish
+
+.wrap_target
+publish:
+    mov isr, x
+    push noblock
+
+    out isr, 2
+    in pins, 2
+    mov osr, isr
+    mov pc, isr
+
+forward:
+    mov x, ~x
+    jmp x--, forward_done
+forward_done:
+    mov x, ~x
+.wrap
